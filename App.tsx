@@ -1,14 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import GifCard from '@components/GifCard';
+import AppNavigator from './src/navigation/AppNavigator';
 
 const App = () => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>App</Text>
-      <GifCard />
-    </View>
-  );
+  return <AppNavigator />;
 };
 
 export default App;

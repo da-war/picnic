@@ -4,17 +4,24 @@ module.exports = {
     [
        'module-resolver',
        {
-         root: ['./'],
+         root: ['./src'],
          extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
          alias: {
-           "@src": "./src",
            "@assets": "./src/assets",
            "@components": "./src/components",
            "@redux": "./src/redux",
            "@screens": "./src/screens",
-            
+           "@api": "./src/api",
          }
        }
-    ]
+    ],
+    [
+      'module:react-native-dotenv',
+      {
+        moduleName: 'react-native-dotenv',
+        path: '.env', // Path to your .env file
+      },
+    ],
+
   ]
 };
