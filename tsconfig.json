@@ -3,12 +3,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-    "@components": ["src/components/*"],
-    "@screens": ["src/screens/*"],
-    "@assets": ["src/assets/*"],
-    "@utils": ["src/utils/*"],
-    "redux": ["src/redux/*"],
-    "@navigation": ["src/navigation/*"],
-},
+      "@components/*": ["src/components/*"],
+      "@screens/*": ["src/screens/*"],
+      "@assets/*": ["src/assets/*"],
+      "@utils/*": ["src/utils/*"],
+      "@redux/*": ["src/redux/*"],
+      "@navigation/*": ["src/navigation/*"]
+    }
   }
 }
