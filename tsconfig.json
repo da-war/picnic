@@ -17,7 +17,7 @@
     "jsx": "react-native",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["jest","@testing-library/jest-native"],
+    "types": ["jest","@testing-library/jest-native","react-native","react"],
     "module": "Node16", // Added this line
     "moduleResolution": "Node16", // Ensure this is also "Node16"
     "esModuleInterop": true

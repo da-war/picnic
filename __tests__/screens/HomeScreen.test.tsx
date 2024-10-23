@@ -1,12 +1,23 @@
 import React from 'react';
-import {render, fireEvent} from '@testing-library/react-native';
-import {TextInput, View} from 'react-native'; // Import necessary components
+import {render, fireEvent, waitFor} from '@testing-library/react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import HomeScreen from '../../src/screens/HomeScreen';
-import {jest} from '@jest/globals';
 
-// Mock the components used in HomeScreen
+// Mock the SearchBar component
 jest.mock('@components/SearchBar', () => {
-  return ({value, onChangeText, onFocus, onBlur}: any) => (
+  const {TextInput} = require('react-native');
+
+  return ({
+    value,
+    onChangeText,
+    onFocus,
+    onBlur,
+  }: {
+    value: string;
+    onChangeText: (text: string) => void;
+    onFocus: () => void;
+    onBlur: () => void;
+  }) => (
     <TextInput
       testID="search-bar"
       value={value}
@@ -17,67 +28,64 @@ jest.mock('@components/SearchBar', () => {
   );
 });
 
+// Mock the GifCard component
 jest.mock('@components/GifCard', () => {
+  const {View} = require('react-native');
   return () => <View testID="gif-card" />;
 });
 
 describe('HomeScreen', () => {
-  it('renders the search bar and gif card correctly', () => {
-    const {getByTestId} = render(<HomeScreen />);
+  it('renders correctly and handles search input', async () => {
+    const {getByTestId, queryByTestId} = render(
+      <NavigationContainer>
+        <HomeScreen />
+      </NavigationContainer>,
+    );
 
-    // Check if the search bar is rendered
     const searchBar = getByTestId('search-bar');
-    expect(searchBar).toBeTruthy();
-
-    // Check if the GifCard is rendered by default
     const gifCard = getByTestId('gif-card');
+
+    // Initially, the GifCard should be visible
     expect(gifCard).toBeTruthy();
+
+    // Simulate focusing the search bar
+    fireEvent(searchBar, 'focus');
+
+    // Wait for the GifCard to be removed
+    await waitFor(() => {
+      expect(queryByTestId('gif-card')).toBeNull(); // GifCard should not be visible
+    });
+
+    // Change the search input value
+    fireEvent.changeText(searchBar, 'test');
+    expect(searchBar.props.value).toBe('test');
+
+    // Simulate blurring the search bar
+    fireEvent(searchBar, 'blur');
+
+    // Wait for the GifCard to be rendered again
+    await waitFor(() => {
+      expect(getByTestId('gif-card')).toBeTruthy(); // GifCard should be visible again
+    });
   });
 
-  it('hides GifCard when the search bar is focused', () => {
-    const {getByTestId, queryByTestId} = render(<HomeScreen />);
-
+  it('clears the search on cancel', async () => {
+    const {getByTestId} = render(
+      <NavigationContainer>
+        <HomeScreen />
+      </NavigationContainer>,
+    );
     const searchBar = getByTestId('search-bar');
 
-    // Focus on the search bar
-    fireEvent.focus(searchBar);
+    // Simulate focusing the search bar
+    fireEvent(searchBar, 'focus');
 
-    // Check that the GifCard is not rendered
-    expect(queryByTestId('gif-card')).toBeNull();
-  });
+    // Change the search input value
+    fireEvent.changeText(searchBar, 'test');
+    expect(searchBar.props.value).toBe('test');
 
-  it('shows GifCard again when the search bar is blurred', () => {
-    const {getByTestId, queryByTestId} = render(<HomeScreen />);
-
-    const searchBar = getByTestId('search-bar');
-
-    // Focus and then blur the search bar
-    fireEvent.focus(searchBar);
-    fireEvent.blur(searchBar);
-
-    // Check that the GifCard is rendered again
-    expect(getByTestId('gif-card')).toBeTruthy();
-  });
-
-  it('changes the search bar value on text input', () => {
-    const {getByTestId} = render(<HomeScreen />);
-    const searchBar = getByTestId('search-bar');
-
-    // Simulate entering text into the search bar
-    fireEvent.changeText(searchBar, 'Hello');
-    expect(searchBar.props.value).toBe('Hello');
-  });
-
-  it('clears the search bar value when cancel is pressed', () => {
-    const {getByTestId} = render(<HomeScreen />);
-    const searchBar = getByTestId('search-bar');
-
-    // Set some value
-    fireEvent.changeText(searchBar, 'Hello');
-    expect(searchBar.props.value).toBe('Hello');
-
-    // Simulate cancel action
-    fireEvent.changeText(searchBar, '');
-    expect(searchBar.props.value).toBe('');
+    // Simulate canceling the search
+    fireEvent.changeText(searchBar, ''); // Clear the search bar
+    expect(searchBar.props.value).toBe(''); // SearchBar should be empty
   });
 });
