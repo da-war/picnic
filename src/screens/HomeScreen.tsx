@@ -31,6 +31,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
       {/* Search Bar */}
       <SearchBar
+        testID="search-bar"
         value={value}
         onChangeText={onChangeText}
         onCancel={() => setValue('')} // Clear search on cancel

@@ -7,17 +7,19 @@ type GifProps = {
   title?: string;
   url?: string;
   ageRestriction?: number;
+  testID?: string;
 };
 
 const GifCard: React.FC<GifProps> = ({
   title = 'dawar',
   url = 'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWpnZXdlcmFnd29ianVudHJneHl5Mnpzbm5vbWdrejA1NWF2anZoNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c1ORoB1FORyqk/giphy.gif',
   ageRestriction = 17,
+  testID,
 }) => {
   const {width, height} = useWindowDimensions();
 
   return (
-    <View style={styles.container}>
+    <View testID={testID} style={styles.container}>
       <FastImage
         source={{uri: url, priority: FastImage.priority.normal}}
         style={[styles.gif, {width: width - 40, height: height / 3}]}

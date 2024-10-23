@@ -3,7 +3,12 @@ import React from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
 
 const App = () => {
-  return <AppNavigator />;
+  // return <AppNavigator />;
+  return (
+    <View>
+      <Text>Hello</Text>
+    </View>
+  );
 };
 
 export default App;

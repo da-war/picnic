@@ -24,6 +24,7 @@ type SearchBarProps = {
   cancelTextColor?: string;
   inputStyle?: object;
   containerStyle?: object;
+  testID?: string;
 };
 
 const SearchBar: React.FC<SearchBarProps> = React.memo(
@@ -42,6 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
     cancelTextColor = 'blue',
     inputStyle = {},
     containerStyle = {},
+    testID,
   }) => {
     const [searchText, setSearchText] = useState(value);
     const inputRef = useRef<TextInput>(null);
@@ -79,7 +81,7 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
     );
 
     return (
-      <View style={[styles.container, containerStyle]}>
+      <View testID={testID} style={[styles.container, containerStyle]}>
         <View style={styles.inputWrapper}>
           <MaterialIcons
             name="search"
