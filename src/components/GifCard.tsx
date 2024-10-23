@@ -1,27 +1,33 @@
+import {Gif} from '@src/constants/types';
 import React from 'react';
-import {View, Text, Image, StyleSheet, useWindowDimensions} from 'react-native';
+import {View, Text, StyleSheet, useWindowDimensions} from 'react-native';
 
 import FastImage from 'react-native-fast-image';
 
-type GifProps = {
-  title?: string;
-  url?: string;
-  ageRestriction?: number;
-  testID?: string;
+// Object lookup for age restrictions
+const ratingLookup: Record<string, {age: number; backgroundColor: string}> = {
+  g: {age: 9, backgroundColor: 'green'},
+  pg: {age: 12, backgroundColor: 'blue'},
+  'pg-13': {age: 17, backgroundColor: 'orange'},
+  r: {age: 18, backgroundColor: 'red'},
+  '18+': {age: 18, backgroundColor: 'red'}, // Similar to "r" for 18+
 };
 
-const GifCard: React.FC<GifProps> = ({
-  title = 'dawar',
-  url = 'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWpnZXdlcmFnd29ianVudHJneHl5Mnpzbm5vbWdrejA1NWF2anZoNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c1ORoB1FORyqk/giphy.gif',
-  ageRestriction = 17,
-  testID,
-}) => {
+const GifCard: React.FC<Gif> = ({title, url, testID, rating, image}) => {
   const {width, height} = useWindowDimensions();
+
+  // Default to 'N/A' if rating is not found in the lookup
+  const {age, backgroundColor} = ratingLookup[rating] || {
+    age: 'N/A',
+    backgroundColor: 'gray',
+  };
+
+  console.log(image);
 
   return (
     <View testID={testID} style={styles.container}>
       <FastImage
-        source={{uri: url, priority: FastImage.priority.normal}}
+        source={{uri: image, priority: FastImage.priority.high}}
         style={[styles.gif, {width: width - 40, height: height / 3}]}
         resizeMode={FastImage.resizeMode.cover}
       />
@@ -30,12 +36,8 @@ const GifCard: React.FC<GifProps> = ({
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.url}>{url}</Text>
         </View>
-        <View
-          style={[
-            styles.ageContainer,
-            ageRestriction > 17 ? styles.redBackground : styles.greenBackground,
-          ]}>
-          <Text style={styles.age}>{ageRestriction}+</Text>
+        <View style={[styles.ageContainer, {backgroundColor}]}>
+          <Text style={styles.age}>{age}</Text>
         </View>
       </View>
     </View>
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     margin: 20,
+    overflow: 'hidden',
   },
   gif: {
     borderRadius: 5,
@@ -66,12 +69,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  redBackground: {
-    backgroundColor: 'red',
-  },
-  greenBackground: {
-    backgroundColor: 'green',
   },
   title: {
     fontSize: 20,
