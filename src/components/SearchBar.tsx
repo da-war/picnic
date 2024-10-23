@@ -1,14 +1,153 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState, useRef, useCallback} from 'react';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Keyboard,
+} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const SearchBar = () => {
-  return (
-    <View>
-      <Text>SearchBar</Text>
-    </View>
-  );
+type SearchBarProps = {
+  placeholder?: string;
+  onCancel?: () => void;
+  onChangeText?: (text: string) => void;
+  value?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  searchIconSize?: number;
+  crossIconSize?: number;
+  searchIconColor?: string;
+  crossIconColor?: string;
+  cancelText?: string;
+  cancelTextColor?: string;
+  inputStyle?: object;
+  containerStyle?: object;
 };
 
-export default SearchBar;
+const SearchBar: React.FC<SearchBarProps> = React.memo(
+  ({
+    placeholder = 'Search',
+    onCancel = () => {},
+    onChangeText = () => {},
+    value = '',
+    onFocus = () => {},
+    onBlur = () => {},
+    searchIconSize = 24,
+    crossIconSize = 24,
+    searchIconColor = 'gray',
+    crossIconColor = 'gray',
+    cancelText = 'Cancel',
+    cancelTextColor = 'blue',
+    inputStyle = {},
+    containerStyle = {},
+  }) => {
+    const [searchText, setSearchText] = useState(value);
+    const inputRef = useRef<TextInput>(null);
+    const [isFocused, setIsFocused] = useState(false);
 
-const styles = StyleSheet.create({});
+    const handleFocus = useCallback(() => {
+      setIsFocused(true);
+      onFocus();
+    }, [onFocus]);
+
+    const handleBlur = useCallback(() => {
+      setIsFocused(false);
+      onBlur();
+    }, [onBlur]);
+
+    const handleCancel = useCallback(() => {
+      setSearchText('');
+      onCancel();
+      onChangeText('');
+      Keyboard.dismiss();
+      inputRef.current?.blur();
+    }, [onCancel, onChangeText]);
+
+    const handleClear = useCallback(() => {
+      setSearchText('');
+      onChangeText('');
+    }, [onChangeText]);
+
+    const handleChangeText = useCallback(
+      (text: string) => {
+        setSearchText(text);
+        onChangeText(text);
+      },
+      [onChangeText],
+    );
+
+    return (
+      <View style={[styles.container, containerStyle]}>
+        <View style={styles.inputWrapper}>
+          <MaterialIcons
+            name="search"
+            size={searchIconSize}
+            color={searchIconColor}
+          />
+          <TextInput
+            ref={inputRef}
+            style={[styles.input, inputStyle]}
+            placeholder={placeholder}
+            value={searchText}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onChangeText={handleChangeText}
+          />
+          {searchText.length > 0 && (
+            <TouchableOpacity onPress={handleClear}>
+              <MaterialIcons
+                name="close"
+                size={crossIconSize}
+                color={crossIconColor}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {/* Always show Cancel button when focused or text is present */}
+        {(isFocused || searchText.length > 0) && (
+          <TouchableOpacity onPress={handleCancel} style={styles.cancelButton}>
+            <Text style={[styles.cancelText, {color: cancelTextColor}]}>
+              {cancelText}
+            </Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    );
+  },
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 50,
+    marginTop: 10,
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    flex: 1,
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 16,
+  },
+  cancelButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 10, // Optional: add some space between input and cancel button
+  },
+  cancelText: {
+    fontSize: 16,
+  },
+});
+
+export default SearchBar;

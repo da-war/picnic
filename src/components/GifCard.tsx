@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, useWindowDimensions} from 'react-native';
 
+import FastImage from 'react-native-fast-image';
+
 type GifProps = {
   title?: string;
   url?: string;
@@ -16,10 +18,10 @@ const GifCard: React.FC<GifProps> = ({
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{uri: url}}
+      <FastImage
+        source={{uri: url, priority: FastImage.priority.normal}}
         style={[styles.gif, {width: width - 40, height: height / 3}]}
-        resizeMode="cover"
+        resizeMode={FastImage.resizeMode.cover}
       />
       <View style={styles.parentContainer}>
         <View style={styles.leftContainer}>
