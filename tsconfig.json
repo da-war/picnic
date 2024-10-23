@@ -9,6 +9,17 @@
       "@utils/*": ["src/utils/*"],
       "@redux/*": ["src/redux/*"],
       "@navigation/*": ["src/navigation/*"]
-    }
-  }
+    },
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "jsx": "react-native",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["jest","@testing-library/jest-native"],
+    "module": "Node16", // Added this line
+    "moduleResolution": "Node16", // Ensure this is also "Node16"
+    "esModuleInterop": true
+  },
+  "exclude": ["node_modules", "**/__tests__/*"]
 }
