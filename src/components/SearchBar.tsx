@@ -25,6 +25,7 @@ type SearchBarProps = {
   inputStyle?: object;
   containerStyle?: object;
   testID?: string;
+  clearTestID?: string;
 };
 
 const SearchBar: React.FC<SearchBarProps> = React.memo(
@@ -44,6 +45,7 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
     inputStyle = {},
     containerStyle = {},
     testID,
+    clearTestID,
   }) => {
     const [searchText, setSearchText] = useState(value);
     const inputRef = useRef<TextInput>(null);
@@ -98,7 +100,7 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
             onChangeText={handleChangeText}
           />
           {searchText.length > 0 && (
-            <TouchableOpacity onPress={handleClear}>
+            <TouchableOpacity testID={clearTestID} onPress={handleClear}>
               <MaterialIcons
                 name="close"
                 size={crossIconSize}

@@ -5,31 +5,36 @@ import HomeScreen from '../../src/screens/HomeScreen';
 
 // Mock the SearchBar component
 jest.mock('@components/SearchBar', () => {
-  const {TextInput} = require('react-native');
+  const React = require('react');
+  const {TextInput, View, TouchableOpacity, Text} = require('react-native');
 
-  return ({
-    value,
-    onChangeText,
-    onFocus,
-    onBlur,
-  }: {
-    value: string;
-    onChangeText: (text: string) => void;
-    onFocus: () => void;
-    onBlur: () => void;
-  }) => (
-    <TextInput
-      testID="search-bar"
-      value={value}
-      onChangeText={onChangeText}
-      onFocus={onFocus}
-      onBlur={onBlur}
-    />
-  );
+  return props => {
+    const {value, onChangeText, onFocus, onBlur} = props;
+
+    return (
+      <View>
+        <TextInput
+          testID="search-bar"
+          value={value}
+          onChangeText={onChangeText}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        />
+        {value.length > 0 && (
+          <TouchableOpacity
+            testID="cancel-button"
+            onPress={() => onChangeText('')}>
+            <Text>Cancel</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    );
+  };
 });
 
 // Mock the GifCard component
 jest.mock('@components/GifCard', () => {
+  const React = require('react');
   const {View} = require('react-native');
   return () => <View testID="gif-card" />;
 });
@@ -58,6 +63,8 @@ describe('HomeScreen', () => {
 
     // Change the search input value
     fireEvent.changeText(searchBar, 'test');
+
+    // Assert that the searchBar's value is updated (the component's value state)
     expect(searchBar.props.value).toBe('test');
 
     // Simulate blurring the search bar
@@ -75,6 +82,7 @@ describe('HomeScreen', () => {
         <HomeScreen />
       </NavigationContainer>,
     );
+
     const searchBar = getByTestId('search-bar');
 
     // Simulate focusing the search bar
@@ -85,7 +93,9 @@ describe('HomeScreen', () => {
     expect(searchBar.props.value).toBe('test');
 
     // Simulate canceling the search
-    fireEvent.changeText(searchBar, ''); // Clear the search bar
+    fireEvent.press(getByTestId('cancel-button')); // Press the cancel button
+
+    // Assert that the searchBar's value is empty
     expect(searchBar.props.value).toBe(''); // SearchBar should be empty
   });
 });

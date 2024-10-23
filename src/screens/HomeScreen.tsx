@@ -37,6 +37,7 @@ const HomeScreen = () => {
         onCancel={() => setValue('')} // Clear search on cancel
         onFocus={handleFocus} // Call handleFocus when focused
         onBlur={handleBlur} // Call handleBlur when blurred
+        clearTestID="cancel-button"
       />
 
       {/* Conditionally render GifCard based on focus state */}
