@@ -1,26 +1,26 @@
-// HomeScreen.tsx
 import {
   StyleSheet,
   View,
   Text,
   FlatList,
   Dimensions,
-  Pressable,
   TouchableOpacity,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {fetchRandomGifStart, resetSearch, startSearch} from '../redux/actions';
 import GifCard from '@components/GifCard';
 import SearchBar from '@components/SearchBar';
 import {RootState} from '../redux/store';
 import FastImage from 'react-native-fast-image';
+import {RootStackParamList} from '@src/constants/types';
 
 const {width} = Dimensions.get('window');
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>(); // Use the navigation type
+
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -32,89 +32,83 @@ const HomeScreen = () => {
   );
 
   useEffect(() => {
-    // Dispatch action to start fetching random GIFs
     dispatch(fetchRandomGifStart());
-
-    // Optionally, reset search results when component mounts
     dispatch(resetSearch());
   }, [dispatch]);
 
-  // Memoize the onChangeText handler
   const onChangeText = useCallback(
     (text: string) => {
       setValue(text);
       if (text) {
-        dispatch(startSearch(text)); // Dispatch the search action on text change
+        dispatch(startSearch(text));
       }
     },
     [dispatch],
   );
 
-  // Memoize the handleFocus and handleBlur handlers
-  const handleFocus = useCallback(() => {
-    setIsFocused(true);
-  }, []);
+  const handleFocus = useCallback(() => setIsFocused(true), []);
+  const handleBlur = useCallback(() => setIsFocused(false), []);
 
-  const handleBlur = useCallback(() => {
-    setIsFocused(false);
-  }, []);
+  const renderGifCard = (gif: any) => (
+    <GifCard
+      image={gif.image}
+      rating={gif.rating}
+      url={gif.url}
+      title={gif.title}
+    />
+  );
+
+  const renderResults = () => {
+    if (searchLoading) {
+      return <Text style={styles.loadingText}>Loading...</Text>;
+    }
+    if (results && results.length > 0) {
+      return (
+        <FlatList
+          data={results}
+          numColumns={3}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Detail', {item})}
+              style={styles.imageContainer}>
+              <FastImage
+                source={{
+                  uri: item.stillImage,
+                  priority: FastImage.priority.high,
+                }}
+                style={styles.images}
+                resizeMode={FastImage.resizeMode.cover}
+              />
+            </TouchableOpacity>
+          )}
+          contentContainerStyle={styles.listContainer}
+          ListEmptyComponent={
+            <Text style={styles.emptyText}>No GIFs found.</Text>
+          }
+        />
+      );
+    }
+    return <Text style={styles.emptyText}>Start searching for GIFs!</Text>;
+  };
 
   return (
     <View style={styles.container}>
-      {/* Search Bar */}
       <SearchBar
         testID="search-bar"
         value={value}
         onChangeText={onChangeText}
-        onCancel={() => setValue('')} // Clear search on cancel
-        onFocus={handleFocus} // Call handleFocus when focused
-        onBlur={handleBlur} // Call handleBlur when blurred
+        onCancel={() => setValue('')}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         clearTestID="cancel-button"
       />
 
-      {/* Conditionally render loading text or GIFs based on focus state */}
       {isFocused ? (
-        // Show searched GIFs or loading state
-        searchLoading ? (
-          <Text style={styles.loadingText}>Loading...</Text>
-        ) : results && results.length > 0 ? (
-          <View style={{flex: 1, marginTop: 20}}>
-            <FlatList
-              data={results} // Ensure results is of type Gif[] or null
-              numColumns={3}
-              renderItem={({item}) => (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Detail', {item})}
-                  style={styles.imageContainer}>
-                  <FastImage
-                    source={{
-                      uri: item.stillImage, // Use the image property from the Gif type
-                      priority: FastImage.priority.high,
-                    }}
-                    style={styles.images}
-                    resizeMode={FastImage.resizeMode.cover}
-                  />
-                </TouchableOpacity>
-              )}
-              contentContainerStyle={styles.listContainer}
-              ListEmptyComponent={
-                <Text style={styles.emptyText}>No GIFs found.</Text>
-              }
-            />
-          </View>
-        ) : (
-          <Text style={styles.emptyText}>Start searching for GIFs!</Text>
-        )
-      ) : // Show random GIF
-      loading ? (
+        renderResults()
+      ) : loading ? (
         <Text style={styles.loadingText}>Loading...</Text>
       ) : gif ? (
-        <GifCard
-          image={gif.image}
-          rating={gif.rating}
-          url={gif.url}
-          title={gif.title}
-        />
+        renderGifCard(gif)
       ) : (
         <Text style={styles.emptyText}>No GIF available.</Text>
       )}

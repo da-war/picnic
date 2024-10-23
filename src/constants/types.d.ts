@@ -1,3 +1,5 @@
+import { ParamListBase } from "@react-navigation/native";
+
 export interface Gif{
     id?: string;
     url: string;
@@ -6,4 +8,9 @@ export interface Gif{
     testID?: string;
     image?: string;
     stillImage?:string
+}
+
+export interface RootStackParamList extends ParamListBase { // Extend ParamListBase
+  Home: undefined; // No parameters for Home
+  Detail: { item: Gif }; // Expecting an object with item of type Gif
 }
