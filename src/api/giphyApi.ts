@@ -6,5 +6,11 @@ export const fetchRandomGif = () => {
 };
 
 export const fetchSearchGifs = (query: string) => {
-  return axios.get(`https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${API_KEY}`);
+  return axios.get(`https://api.giphy.com/v1/gifs/search`, {
+    params: {
+      q: query,
+      api_key: API_KEY,
+      limit: 15, // Limit the results to 15
+    },
+  });
 };

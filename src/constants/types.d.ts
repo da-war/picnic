@@ -33,3 +33,8 @@ declare interface SearchBarProps  {
   testID?: string;
   clearTestID?: string;
 };
+
+declare interface GifItemProps{
+  item: Gif;
+  onPress: () => void;
+}
