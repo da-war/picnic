@@ -2,7 +2,7 @@
 import { debounceTime, switchMap, map, catchError } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
 import { from, interval, of } from 'rxjs';
-import { fetchRandomGif, fetchSearchGifs } from '../api/giphyApi';
+import { fetchRandomGif, fetchSearchGifs } from '@services/giphyService';
 import {
   fetchRandomGifFailure,
   fetchRandomGifStart,

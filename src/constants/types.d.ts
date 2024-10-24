@@ -1,6 +1,6 @@
 import { ParamListBase } from "@react-navigation/native";
 
-export interface Gif{
+declare interface Gif{
     id?: string;
     url: string;
     rating: string;
@@ -10,7 +10,7 @@ export interface Gif{
     stillImage?:string
 }
 
-export interface RootStackParamList extends ParamListBase { // Extend ParamListBase
+declare interface RootStackParamList extends ParamListBase { // Extend ParamListBase
   Home: undefined; // No parameters for Home
   Detail: { item: Gif }; 
 }
@@ -37,4 +37,18 @@ declare interface SearchBarProps  {
 declare interface GifItemProps{
   item: Gif;
   onPress: () => void;
+}
+
+// Define the types for the random GIF state
+declare interface RandomGifState {
+  gif: Gif | null; // Change to Gif type or null
+  loading: boolean;
+  error: string | null;
+}
+
+// Define the types for the search GIF state
+declare interface SearchGifState {
+  results: Gif[] | null; // Change to array of Gif or null
+  loading: boolean;
+  error: string | null;
 }

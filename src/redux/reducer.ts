@@ -9,21 +9,8 @@ import {
   startSearch,
   resetSearch,
 } from './actions';
-import { Gif } from '@src/constants/types'; // Import Gif type
+import { Gif, RandomGifState, SearchGifState } from '@src/constants/types'; // Import Gif type
 
-// Define the types for the random GIF state
-interface RandomGifState {
-  gif: Gif | null; // Change to Gif type or null
-  loading: boolean;
-  error: string | null;
-}
-
-// Define the types for the search GIF state
-interface SearchGifState {
-  results: Gif[] | null; // Change to array of Gif or null
-  loading: boolean;
-  error: string | null;
-}
 
 // Define the initial state for random GIF
 const initialRandomGifState: RandomGifState = {

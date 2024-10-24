@@ -12,7 +12,7 @@ module.exports = {
            "@components": "./src/components",
            "@redux": "./src/redux",
            "@screens": "./src/screens",
-           "@api": "./src/api",
+           "@services": "./src/services",
          }
        }
     ],

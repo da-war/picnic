@@ -10,3 +10,4 @@ export const mapApiToGif = (data: any): Gif => ({
     image: data.images.original.url, // Fallback to webp if fixed_height_small is not available
   stillImage:data.images.fixed_height_still.url || data.images.fixed_height_small_still.url
 });
+
