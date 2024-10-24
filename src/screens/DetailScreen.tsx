@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {RootStackParamList} from '@src/constants/types';
 import GifCard from '@src/components/GifCard';
+import {useNavigation} from '@react-navigation/native';
 
 type DetailScreenRouteProp = RouteProp<RootStackParamList, 'Detail'>;
 
 const DetailScreen = () => {
   const route = useRoute<DetailScreenRouteProp>();
+  const navigation = useNavigation();
   const {item} = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({title: item.title || 'Gif Title'});
+  }, [navigation, item.title]);
 
   return (
     <View style={styles.container}>

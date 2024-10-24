@@ -1,10 +1,10 @@
 import React from 'react';
-import renderer, {act} from 'react-test-renderer'; // Import 'act' from 'react-test-renderer'
+import renderer from 'react-test-renderer'; // Import 'act' from 'react-test-renderer' is not needed here
 import {Provider} from 'react-redux';
-import App from '../App'; // Path to your App component
 
-import {store} from '../src/redux/store';
 import {NavigationContainer} from '@react-navigation/native';
+import {store} from '@src/redux/store';
+import App from 'App';
 
 // Mock the NavigationContainer
 jest.mock('@react-navigation/native', () => {
@@ -12,7 +12,9 @@ jest.mock('@react-navigation/native', () => {
 
   return {
     ...actualNav,
-    NavigationContainer: ({children}) => <>{children}</>, // Render children directly
+    NavigationContainer: ({children}: {children: React.ReactNode}) => (
+      <>{children}</>
+    ), // Explicitly type 'children'
   };
 });
 
@@ -21,8 +23,8 @@ jest.mock('@react-navigation/native-stack', () => {
   return {
     createNativeStackNavigator: () => {
       return {
-        Navigator: ({children}) => <>{children}</>, // Render children directly
-        Screen: ({children}) => <>{children}</>, // Render children directly
+        Navigator: ({children}: {children: React.ReactNode}) => <>{children}</>, // Explicitly type 'children'
+        Screen: ({children}: {children: React.ReactNode}) => <>{children}</>, // Explicitly type 'children'
       };
     },
   };

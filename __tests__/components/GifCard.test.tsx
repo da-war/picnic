@@ -1,8 +1,7 @@
 // GifCard.test.tsx
 import React from 'react';
 import {render} from '@testing-library/react-native';
-
-import GifCard from '../../src/components/GifCard';
+import GifCard from '@src/components/GifCard';
 
 // Mock FastImage to prevent issues during tests
 jest.mock('react-native-fast-image', () => {
@@ -23,7 +22,15 @@ describe('GifCard', () => {
   };
 
   it('renders title and URL correctly', () => {
-    const {getByTestId} = render(<GifCard {...mockGif} />);
+    const {getByTestId} = render(
+      <GifCard
+        title={mockGif.title}
+        url={mockGif.url}
+        rating={mockGif.rating}
+        image={mockGif.image}
+        testID={mockGif.testID}
+      />,
+    );
 
     expect(getByTestId('test-gif-card-title').props.children).toEqual(
       mockGif.title,

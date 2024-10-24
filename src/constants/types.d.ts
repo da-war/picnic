@@ -3,7 +3,7 @@ import { ParamListBase } from "@react-navigation/native";
 export interface Gif{
     id?: string;
     url: string;
-    rating: 'g'|'pg'|'pg-13'|'r';
+    rating: string;
     title: string;
     testID?: string;
     image?: string;
