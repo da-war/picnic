@@ -1,8 +1,8 @@
 import React from 'react';
 import {render} from '@testing-library/react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import DetailScreen from '../../src/screens/DetailScreen'; // Adjust the path as needed
 import {useRoute, useNavigation} from '@react-navigation/native';
+import DetailScreen from '@src/screens/DetailScreen';
 
 // Mock the navigation ref
 jest.mock('@react-navigation/native', () => {

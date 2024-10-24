@@ -9,7 +9,8 @@
       "@assets/*": ["src/assets/*"],
       "@utils/*": ["src/utils/*"],
       "@redux/*": ["src/redux/*"],
-      "@navigation/*": ["src/navigation/*"]
+      "@navigation/*": ["src/navigation/*"],
+      "@api/*":["src/api/*"]
     },
     "strict": true,
     "noImplicitAny": true,

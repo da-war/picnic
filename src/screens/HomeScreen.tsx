@@ -95,7 +95,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View testID="home-screen" style={styles.container}>
       <SearchBar
         testID="search-bar"
         value={value}

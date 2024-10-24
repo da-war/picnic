@@ -13,17 +13,8 @@ import {
   startSearch,
 } from './actions';
 import { Gif } from '@src/constants/types';
+import { mapApiToGif } from '@src/utils';
 
-// Utility function to map the API response to Gif type
-const mapApiToGif = (data: any): Gif => ({
-  id: data.id,
-  url: data.url,
-  rating: data.rating,
-  title: data.title,
-  // Use the non-animated version of the image
-    image: data.images.original.url, // Fallback to webp if fixed_height_small is not available
-  stillImage:data.images.fixed_height_still.url || data.images.fixed_height_small_still.url
-});
 
 // Epic to fetch random GIF every 10 seconds
 export const randomGifEpic = (action$: any) =>

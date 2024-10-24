@@ -7,6 +7,7 @@ import {
   searchFailure,
   fetchRandomGifStart,
   startSearch,
+  resetSearch,
 } from './actions';
 import { Gif } from '@src/constants/types'; // Import Gif type
 
@@ -39,7 +40,7 @@ const initialSearchGifState: SearchGifState = {
 };
 
 // Create the random GIF slice
-const randomGifSlice = createSlice({
+export const randomGifSlice = createSlice({
   name: 'randomGif',
   initialState: initialRandomGifState,
   reducers: {},
@@ -60,7 +61,7 @@ const randomGifSlice = createSlice({
 });
 
 // Create the search GIF slice
-const searchGifSlice = createSlice({
+export const searchGifSlice = createSlice({
   name: 'searchGif',
   initialState: initialSearchGifState,
   reducers: {},
@@ -77,6 +78,12 @@ const searchGifSlice = createSlice({
       .addCase(searchFailure, (state) => {
         state.loading = false;
         state.error = 'Failed to search GIFs.';
+      })
+    .addCase(resetSearch, (state) => {
+        // Reset the search state
+        state.results = null;
+        state.loading = false;
+        state.error = null;
       });
   }
 });
