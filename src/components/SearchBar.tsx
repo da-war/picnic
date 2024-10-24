@@ -1,3 +1,4 @@
+import {SearchBarProps} from '@src/constants/types';
 import React, {useState, useRef, useCallback} from 'react';
 import {
   View,
@@ -8,25 +9,6 @@ import {
   Keyboard,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-type SearchBarProps = {
-  placeholder?: string;
-  onCancel?: () => void;
-  onChangeText?: (text: string) => void;
-  value?: string;
-  onFocus?: () => void;
-  onBlur?: () => void;
-  searchIconSize?: number;
-  crossIconSize?: number;
-  searchIconColor?: string;
-  crossIconColor?: string;
-  cancelText?: string;
-  cancelTextColor?: string;
-  inputStyle?: object;
-  containerStyle?: object;
-  testID?: string;
-  clearTestID?: string;
-};
 
 const SearchBar: React.FC<SearchBarProps> = React.memo(
   ({
@@ -98,6 +80,8 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChangeText={handleChangeText}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           {searchText.length > 0 && (
             <TouchableOpacity testID={clearTestID} onPress={handleClear}>
@@ -110,7 +94,6 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
           )}
         </View>
 
-        {/* Always show Cancel button when focused or text is present */}
         {(isFocused || searchText.length > 0) && (
           <TouchableOpacity onPress={handleCancel} style={styles.cancelButton}>
             <Text style={[styles.cancelText, {color: cancelTextColor}]}>

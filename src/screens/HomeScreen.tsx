@@ -19,8 +19,7 @@ import {RootStackParamList} from '@src/constants/types';
 const {width} = Dimensions.get('window');
 
 const HomeScreen = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>(); // Use the navigation type
-
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);

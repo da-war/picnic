@@ -1489,6 +1489,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.9.2":
+  version: 7.25.9
+  resolution: "@babel/runtime@npm:7.25.9"
+  dependencies:
+    regenerator-runtime: ^0.14.0
+  checksum: ce1c87b166ff728eaee91658a67fb7835314ed157b7a36d49602ffdaaa37fb1fcf2784afd00b55fe1672bec53fb38cba622a056c913611af2a44503097216229
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.0.0, @babel/template@npm:^7.25.7, @babel/template@npm:^7.3.3":
   version: 7.25.7
   resolution: "@babel/template@npm:7.25.7"
@@ -2573,23 +2582,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-native@npm:^5.4.3":
-  version: 5.4.3
-  resolution: "@testing-library/jest-native@npm:5.4.3"
-  dependencies:
-    chalk: ^4.1.2
-    jest-diff: ^29.0.1
-    jest-matcher-utils: ^29.0.1
-    pretty-format: ^29.0.3
-    redent: ^3.0.0
-  peerDependencies:
-    react: ">=16.0.0"
-    react-native: ">=0.59"
-    react-test-renderer: ">=16.0.0"
-  checksum: 2a4ebfeff09523860771cfddac6fcc3faa2f855dc63255b9efc016e727132320f16f935cec9717d6d79cfa6715fce6ded877215c8ec85d236a5c3136a65b1020
-  languageName: node
-  linkType: hard
-
 "@testing-library/react-native@npm:^12.7.2":
   version: 12.7.2
   resolution: "@testing-library/react-native@npm:12.7.2"
@@ -2784,6 +2776,15 @@ __metadata:
     "@types/prop-types": "*"
     csstype: ^3.0.2
   checksum: 6cbf36673b64e758dd61b16c24139d015f58530e0d476777de26ba83f24b55e142fbf64e3b8f6b3c7b05ed9ba548551b2a62d9ffb0f95743d0a368646a619163
+  languageName: node
+  linkType: hard
+
+"@types/redux-mock-store@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@types/redux-mock-store@npm:1.0.6"
+  dependencies:
+    redux: ^4.0.5
+  checksum: 5c799d2fc5b3f0f84bfcd6243c56b1ac98be6707057f570b5e51e9d305f446978cc2958c7e0b629ebf73293f15a79765517e6d0a1df0371fd27551f7128325c7
   languageName: node
   linkType: hard
 
@@ -3035,7 +3036,6 @@ __metadata:
     "@react-navigation/native": ^6.1.18
     "@react-navigation/native-stack": ^6.11.0
     "@reduxjs/toolkit": ^2.3.0
-    "@testing-library/jest-native": ^5.4.3
     "@testing-library/react-native": ^12.7.2
     "@types/jest": ^29.5.13
     "@types/react": ^18.3.11
@@ -3043,6 +3043,7 @@ __metadata:
     "@types/react-native-dotenv": ^0.2.2
     "@types/react-native-vector-icons": ^6.4.18
     "@types/react-test-renderer": ^18.0.0
+    "@types/redux-mock-store": ^1.0.6
     axios: ^1.7.7
     babel-jest: ^29.6.3
     babel-plugin-module-resolver: ^5.0.2
@@ -3060,7 +3061,9 @@ __metadata:
     react-native-vector-icons: ^10.2.0
     react-redux: ^9.1.2
     react-test-renderer: 18.3.1
+    redux-mock-store: ^1.5.5
     redux-observable: ^3.0.0-rc.2
+    redux-thunk: ^3.1.0
     rxjs: ^7.8.1
     typescript: ^5.6.3
   languageName: unknown
@@ -6294,7 +6297,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-diff@npm:^29.0.1, jest-diff@npm:^29.7.0":
+"jest-diff@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest-diff@npm:29.7.0"
   dependencies:
@@ -6382,7 +6385,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-matcher-utils@npm:^29.0.1, jest-matcher-utils@npm:^29.7.0":
+"jest-matcher-utils@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest-matcher-utils@npm:29.7.0"
   dependencies:
@@ -6925,6 +6928,13 @@ __metadata:
   version: 4.0.8
   resolution: "lodash.debounce@npm:4.0.8"
   checksum: a3f527d22c548f43ae31c861ada88b2637eb48ac6aa3eb56e82d44917971b8aa96fbb37aa60efea674dc4ee8c42074f90f7b1f772e9db375435f6c83a19b3bc6
+  languageName: node
+  linkType: hard
+
+"lodash.isplainobject@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "lodash.isplainobject@npm:4.0.6"
+  checksum: 29c6351f281e0d9a1d58f1a4c8f4400924b4c79f18dfc4613624d7d54784df07efaff97c1ff2659f3e085ecf4fff493300adc4837553104cef2634110b0d5337
   languageName: node
   linkType: hard
 
@@ -8120,7 +8130,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:^29.0.0, pretty-format@npm:^29.0.3, pretty-format@npm:^29.7.0":
+"pretty-format@npm:^29.0.0, pretty-format@npm:^29.7.0":
   version: 29.7.0
   resolution: "pretty-format@npm:29.7.0"
   dependencies:
@@ -8525,6 +8535,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"redux-mock-store@npm:^1.5.5":
+  version: 1.5.5
+  resolution: "redux-mock-store@npm:1.5.5"
+  dependencies:
+    lodash.isplainobject: ^4.0.6
+  peerDependencies:
+    redux: "*"
+  checksum: a6e1dda7abc96066344b7f9fa8726c40dff6ea31b8393ead26c0525663528af257bfef85c38af8beb4e549c189bd90fde5dcb5729b16057de7fffc0c43881ca6
+  languageName: node
+  linkType: hard
+
 "redux-observable@npm:^3.0.0-rc.2":
   version: 3.0.0-rc.2
   resolution: "redux-observable@npm:3.0.0-rc.2"
@@ -8541,6 +8562,15 @@ __metadata:
   peerDependencies:
     redux: ^5.0.0
   checksum: bea96f8233975aad4c9f24ca1ffd08ac7ec91eaefc26e7ba9935544dc55d7f09ba2aa726676dab53dc79d0c91e8071f9729cddfea927f4c41839757d2ade0f50
+  languageName: node
+  linkType: hard
+
+"redux@npm:^4.0.5":
+  version: 4.2.1
+  resolution: "redux@npm:4.2.1"
+  dependencies:
+    "@babel/runtime": ^7.9.2
+  checksum: f63b9060c3a1d930ae775252bb6e579b42415aee7a23c4114e21a0b4ba7ec12f0ec76936c00f546893f06e139819f0e2855e0d55ebfce34ca9c026241a6950dd
   languageName: node
   linkType: hard
 
