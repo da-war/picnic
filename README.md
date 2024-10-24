@@ -1,3 +1,71 @@
+# React Native Project
+
+## Overview
+
+This project is built using **React Native CLI**, aiming to align with Picnic's tech stack as per the job description. The chosen libraries and architecture provide a robust, scalable, and testable environment for developing modern mobile applications.
+
+## Dependencies
+
+- **@react-navigation/native & @react-navigation/native-stack**: I used these for smooth navigations between the Home and Detail Screen
+- **@reduxjs/toolkit & react-redux**: For the best way to manage state of the app (single source of truth)
+- **redux-observable & rxjs**: These libs are more scalable handling of async operations and side effects using reactive programming with observables.
+- **redux-thunk**: Enables simpler, straightforward async actions in Redux without introducing too much complexity.
+- **axios & axios-mock-adapter**: For making HTTP requests to external APIs with ease, and mocking those requests for testing purposes.
+- **react-native-fast-image**: For the best performance used this as well as on Picnic Github it's forked which means it's used by Picnic so that is also a reason.
+- **react-native-gesture-handler & react-native-screens**: Improves touch gestures and enhances performance in navigation transitions and interactions.
+- **react-native-safe-area-context**: Ensures that the app correctly handles safe area boundaries on all devices.
+- **react-native-vector-icons**: For Icons used in the HomeScreen.
+
+## Testing
+
+- **Jest**: A robust JavaScript testing framework, perfect for unit and integration tests.
+- **@testing-library/react-native**: Focuses on testing the behavior of the app's components from a user's perspective, making sure they work as expected.
+
+## Project Architecture
+
+The architecture follows a modular and scalable approach, with clear separation of concerns:
+
+- **Components**: Reusable UI elements across different screens.
+- **Screens**: Handles the logic and layout for each view or page in the app.
+- **Services**: Contains API calls and business logic.
+- **Redux**: Manages the app's global state, organized into slices for modularity.
+- **Constants**: Stores reusable constants like colors, fonts, and API endpoints.
+- **Utils**: For utility functions for reusability and clean code
+
+## Folder Structure
+
+```
+src/
+    components/
+    screens/
+    services/
+    redux/
+    constants/
+    navigation/
+    utils/
+__tests__
+
+App.tsx
+index.js
+```
+
+This structure ensures easy maintenance and scalability as the app grows.
+
+We can further use it as **Domain Base**, **Event-Driven** and can use with **monorepo** if more apps are being developed.
+
+For the easy conversions of this architecture I used proper **PATH ALIAS** configured in tsconfig.json and babel.config.js.
+
+
+
+
+
+
+
+
+
+
+
+
 # Picnic Recruitment Task
 
 Please read the following instructions carefully and make sure that you fulfil
