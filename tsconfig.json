@@ -10,7 +10,7 @@
       "@utils/*": ["src/utils/*"],
       "@redux/*": ["src/redux/*"],
       "@navigation/*": ["src/navigation/*"],
-      "@services/*":["src/services/*"]
+      "@services/*":["src/services/*"],
     },
     "strict": true,
     "noImplicitAny": true,
