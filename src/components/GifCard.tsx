@@ -3,8 +3,6 @@ import React from 'react';
 import {View, Text, StyleSheet, useWindowDimensions} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-// Object lookup for age restrictions
-
 const GifCard: React.FC<Gif> = ({
   title = 'Giphy Gif',
   url,
@@ -17,6 +15,7 @@ const GifCard: React.FC<Gif> = ({
   // Normalize the rating to lowercase
   const normalizedRating = rating.toLowerCase(); // Add this line
 
+  //object to store the rating and its corresponding age and background color
   const ratingLookup: Record<string, {age: number; backgroundColor: string}> = {
     g: {age: 9, backgroundColor: 'green'},
     pg: {age: 12, backgroundColor: 'blue'},

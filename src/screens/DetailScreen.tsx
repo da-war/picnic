@@ -13,6 +13,7 @@ const DetailScreen = () => {
   const {item} = route.params;
 
   useEffect(() => {
+    // Set the title of the screen to the gif title if available
     navigation.setOptions({title: item.title || 'Gif Title'});
   }, [navigation, item.title]);
 
