@@ -1,7 +1,7 @@
 // searchGifSlice.test.ts
-import { searchSuccess, searchFailure, startSearch, resetSearch } from '@redux/actions';
+import { searchSuccess, searchFailure, startSearch, resetSearch } from '@actions/index';
 import { Gif } from '@src/constants/types';
-import { searchGifSlice } from '@src/redux/reducer';
+import { searchGifSlice } from '@slices/searchGifSlice';
 
 describe('searchGifSlice', () => {
   const initialState = {

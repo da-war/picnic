@@ -5,7 +5,13 @@ import FastImage from 'react-native-fast-image';
 
 // Object lookup for age restrictions
 
-const GifCard: React.FC<Gif> = ({title, url, testID, rating, image}) => {
+const GifCard: React.FC<Gif> = ({
+  title = 'Giphy Gif',
+  url,
+  testID,
+  rating,
+  image,
+}) => {
   const {width, height} = useWindowDimensions();
 
   // Normalize the rating to lowercase

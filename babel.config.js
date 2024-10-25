@@ -13,9 +13,12 @@ module.exports = {
            "@redux": "./src/redux",
            "@screens": "./src/screens",
            "@services": "./src/services",
+            "@actions":["./src/redux/actions"],
+            "@epics":["./src/redux/epics"],
+            "@slices":["./src/redux/slices"]
          }
        }
-    ],
+  ],
     [
       'module:react-native-dotenv',
       {

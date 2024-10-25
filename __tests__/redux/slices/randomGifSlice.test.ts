@@ -1,6 +1,6 @@
 // randomGifSlice.test.ts
-import { randomGifSlice } from '@src/redux/reducer';
-import { fetchRandomGifSuccess, fetchRandomGifFailure, fetchRandomGifStart } from '@redux/actions';
+import { randomGifSlice } from '@slices/randomGifSlice';
+import { fetchRandomGifSuccess, fetchRandomGifFailure, fetchRandomGifStart } from '@actions/index';
 import { Gif } from '@src/constants/types';
 
 describe('randomGifSlice', () => {

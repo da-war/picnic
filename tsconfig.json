@@ -11,6 +11,9 @@
       "@redux/*": ["src/redux/*"],
       "@navigation/*": ["src/navigation/*"],
       "@services/*":["src/services/*"],
+      "@actions/*":["src/redux/actions/*"],
+      "@epics/*":["src/redux/epics/*"],
+      "@slices/*":["src/redux/slices/*"]
     },
     "strict": true,
     "noImplicitAny": true,

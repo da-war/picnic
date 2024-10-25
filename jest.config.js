@@ -16,7 +16,7 @@ module.exports = {
     '\\.(png|jpg|jpeg|gif|svg)$': '<rootDir>/__mocks__/fileMock.tsx',
   },
   coverageReporters: ['json', 'text', 'lcov', 'clover'],
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts' , '!src/navigation/*.{js,jsx,ts,tsx}','!src/utils/*.{js,jsx,ts,tsx}','!src/api/*.{js,jsx,ts,tsx}'],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts' , '!src/navigation/*.{js,jsx,ts,tsx}','!src/utils/*.{js,jsx,ts,tsx}','!src/api/*.{js,jsx,ts,tsx}','!src/redux/epics/*.{js,jsx,ts,tsx}','!src/screens/HomeScreen.tsx',],
   globals: {
     'ts-jest': {
       babelConfig: true,

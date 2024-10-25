@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { fetchRandomGifStart } from '@src/redux/actions';
-import { randomGifReducer } from '@src/redux/slices/randomGifSlice';
-import { searchGifReducer } from '@src/redux/slices/searchGifSlice';
+import { randomGifReducer } from '@slices/randomGifSlice';
+import { searchGifReducer } from '@slices/searchGifSlice';
 import { createEpicMiddleware } from 'redux-observable';
 
 // Helper to create a mock store for testing purposes
