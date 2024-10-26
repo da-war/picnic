@@ -15,8 +15,8 @@ const mapApiToGif = (data: any): Gif => ({
   rating: data.rating,
   title: data.title,
   // Use the non-animated version of the image
-    image: data.images.original.url, // Fallback to webp if fixed_height_small is not available
-  stillImage:data.images.fixed_height_still.url || data.images.fixed_height_small_still.url
+    image: data.images.original.url, 
+  stillImage:data.images.fixed_height_still.url || data.images.fixed_height_small_still.url // Fallback to webp if fixed_height_small is not available
 });
 
 // Epic to fetch random GIF every 10 seconds

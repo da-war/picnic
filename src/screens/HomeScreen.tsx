@@ -107,17 +107,23 @@ const HomeScreen = () => {
       />
 
       {isFocused ? (
-        renderResults()
+        <View style={{flex: 1}}>
+          <Text style={styles.emptyText}>Search results:</Text>
+          {renderResults()}
+        </View>
       ) : loading ? (
         <Text style={styles.loadingText}>Loading...</Text>
       ) : gif ? (
-        <GifCard
-          title={gif.title}
-          url={gif.url}
-          rating={gif.rating}
-          image={gif.image}
-          testID="gif-card"
-        />
+        <>
+          <Text style={styles.emptyText}>Random GIF:</Text>
+          <GifCard
+            title={gif.title}
+            url={gif.url}
+            rating={gif.rating}
+            image={gif.image}
+            testID="gif-card"
+          />
+        </>
       ) : (
         <Text style={styles.emptyText}>No GIF available.</Text>
       )}
