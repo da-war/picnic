@@ -1,5 +1,5 @@
 // searchGifEpic.ts
-import { debounceTime, switchMap, map, catchError } from 'rxjs/operators';
+import { debounceTime, switchMap, map, catchError, filter } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
 import { from, of } from 'rxjs';
 import { fetchSearchGifs } from '@services/giphyService';
@@ -27,6 +27,7 @@ export const searchGifEpic = (action$: any) =>
   action$.pipe(
     ofType(startSearch.type),
     debounceTime(300), // Debounce input by 300ms
+    filter((action:any) => action.payload.length >= 2), //
     switchMap((action: any) =>
       from(fetchSearchGifs(action.payload)).pipe(
         map((response) => {
