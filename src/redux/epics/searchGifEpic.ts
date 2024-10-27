@@ -27,7 +27,7 @@ export const searchGifEpic = (action$: any) =>
   action$.pipe(
     ofType(startSearch.type),
     debounceTime(300), // Debounce input by 300ms
-    filter((action:any) => action.payload.length >= 2), //
+    filter((action:any) => action.payload.length >= 2), //wait for at least 2 characters
     switchMap((action: any) =>
       from(fetchSearchGifs(action.payload)).pipe(
         map((response) => {

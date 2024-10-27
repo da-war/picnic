@@ -8,10 +8,9 @@ import {
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
 import SearchBar from '@components/SearchBar';
 import FastImage from 'react-native-fast-image';
-import {GifItemProps, RootStackParamList} from '@src/constants/types';
+import {GifItemProps} from '@src/constants/types';
 import {RootState} from '@src/redux/store';
 import {
   fetchRandomGifStart,
@@ -20,6 +19,7 @@ import {
 } from '@src/redux/actions';
 
 import GifCard from '@src/components/GifCard';
+import {navigate} from '@src/utils/NavigationUtils';
 
 const {width, height} = Dimensions.get('window');
 
@@ -39,7 +39,6 @@ const GifItemSmall = ({item, onPress}: GifItemProps) => {
 };
 
 const HomeScreen = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -81,7 +80,7 @@ const HomeScreen = () => {
           renderItem={({item}) => (
             <GifItemSmall
               item={item}
-              onPress={() => navigation.navigate('Detail', {item})}
+              onPress={() => navigate('Detail', {item})}
             />
           )}
           contentContainerStyle={styles.listContainer}
